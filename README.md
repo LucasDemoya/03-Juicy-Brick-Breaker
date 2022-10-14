@@ -3,8 +3,6 @@
 This is our third project in which we were given the task of making a normal brick-breaker game "juicy" 
 10/13/22
 
-Description
-
 ## Implementation
 
 Built using Godot 3.5
@@ -24,7 +22,6 @@ Sound Effects: Created myself using recordings made from household objects.
 11. Added a comet trail to the ball. 
 12. Animated the bricks so they wobble in place.
 13. Made bricks rotate as they fell. 
-
 
 
 ## References
