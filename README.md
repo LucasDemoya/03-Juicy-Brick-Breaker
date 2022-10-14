@@ -29,11 +29,17 @@ Sound Effects: Created myself using recordings made from household objects.
 
 ## References
 Main Menu Music: https://freemusicarchive.org/music/eggy-toast/game-music/lose-your-headmp3/
+
 Main Menu Shader: https://godotshaders.com/shader/2d-nebula-shader/
+
 Game Scene Music: https://freemusicarchive.org/music/holiznacc0/power-pop/dear-mr-super-computer/
+
 Game Scene Shader: https://godotshaders.com/shader/kaleidoscope/
+
 Paddle/Ball Sprites: https://www.kenney.nl/assets/puzzle-pack
+
 Brick Sprites: https://www.kenney.nl/assets/puzzle-pack-2
+
 Sound Effects: Created using recordings made from household objects
 
 ## Future Development
