@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Musicc_mixdown.mp3-8580a5dccc17f4b40c700cd2451956e7.mp3str"
+
+[deps]
+
+source_file="res://Assets/Musicc_mixdown.mp3"
+dest_files=[ "res://.import/Musicc_mixdown.mp3-8580a5dccc17f4b40c700cd2451956e7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

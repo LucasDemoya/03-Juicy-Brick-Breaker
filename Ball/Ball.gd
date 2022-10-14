@@ -14,6 +14,7 @@ var wobble_direction = Vector2.ZERO
 var decay_wobble = 0.15
 export var distort_effect = 0.0002
 
+var h_rotate = 0.0
 
 var released = true
 
@@ -49,6 +50,7 @@ func _input(event):
 func _integrate_forces(state):
 	wobble()
 	distort()
+	comet()
 	var decay = 0.04
 	if $Images/Highlight.modulate.a > 0:
 		$Images/Highlight.modulate.a -= decay
@@ -91,4 +93,14 @@ func distort():
   var direction = Vector2(1 + linear_velocity.length() * distort_effect, 1 - linear_velocity.length() * distort_effect)
   $Images.rotation = linear_velocity.angle()
   $Images.scale = direction
+
+func comet():
+	h_rotate = wrapf(h_rotate+0.01, 0, 1)
+	var comet_container = get_node_or_null("/root/Game/Comet_Container")
+	if comet_container != null:
+		var sprite = $Images/Sprite.duplicate()
+		sprite.global_position = global_position
+		sprite.modulate.s = 0.6
+		sprite.modulate.h = h_rotate
+		comet_container.add_child(sprite)
 

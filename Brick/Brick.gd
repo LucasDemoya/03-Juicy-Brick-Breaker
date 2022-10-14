@@ -14,37 +14,54 @@ var duration_seconds = 0.5
 
 var powerup_prob = 0.1
 
+export var sway_amplitude = 3.0
+var sway_initial_position = Vector2.ZERO
+var sway_randomizer = Vector2.ZERO
+
+var color_index = 0
+var color_distance = 0
+var color_completed = true
+var colors = [load("res://Assets/tileRed_02.png"), load("res://Assets/tileOrange_01.png"), load("res://Assets/tileYellow_02.png"), load("res://Assets/tileGreen_02.png"), load("res://Assets/tileBlue_02.png"), load("res://Assets/tilePink_02.png"), load("res://Assets/tileBlack_02.png"), load("res://Assets/tileGrey_02.png")]
 
 func _ready():
+	randomize()
 	position.x = new_position.x
 	position.y = -100
-	$Tween.interpolate_property(self, "position", position, new_position, 0.5 + randf()*2, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
+	$Tween.interpolate_property(self, "position", position, new_position, time_appear + randf()*2, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
 	$Tween.start()
-	if score >= 100:
-		$TextureRect.texture = load("res://Assets/tileRed_02.png")
-	elif score >= 90:
-		$TextureRect.texture = load("res://Assets/tileOrange_01.png")
-	elif score >= 80:
-		$TextureRect.texture = load("res://Assets/tileYellow_02.png")
-	elif score >= 70:
-		$TextureRect.texture = load("res://Assets/tileGreen_02.png")
-	elif score >= 60:
-		$TextureRect.texture = load("res://Assets/tileBlue_02.png")
-	elif score >= 50:
-		$TextureRect.texture = load("res://Assets/tilePink_02.png")
-	elif score >= 40:
-		$TextureRect.texture = load("res://Assets/tileBlack_02.png")
-	else:
-		$TextureRect.texture = load("res://Assets/tileGrey_02.png")	
+	if score >= 100: color_index = 0
+	elif score >= 90: color_index = 1
+	elif score >= 80: color_index = 2
+	elif score >= 70: color_index = 3 
+	elif score >= 60: color_index=  4
+	elif score >= 50: color_index = 5
+	elif score >= 40: color_index = 6
+	else: color_index = 7
+	$TextureRect.texture = colors[color_index]
+	sway_initial_position = $TextureRect.rect_position
+	sway_randomizer = Vector2(randf()*6-3.0, randf()*6-3.0)
 
 func _physics_process(_delta):
 	if dying and not $Confetti.emitting and not $Tween.is_active():
 		queue_free()
+	elif not $Tween.is_active() and not get_tree().paused:
+		color_distance = Global.color_position.distance_to(global_position)  / 100
+		if Global.color_rotate >= 0:
+			$TextureRect.texture = colors[(int(floor(color_distance + Global.color_rotate))) % len(colors)]
+			color_completed = false
+		elif not color_completed:
+			$TextureRect.texture = colors[color_index]
+			color_completed = true
+		var pos_x = (sin(Global.sway_index)*(sway_amplitude + sway_randomizer.x))
+		var pos_y = (cos(Global.sway_index)*(sway_amplitude + sway_randomizer.y))
+		$TextureRect.rect_position = Vector2(sway_initial_position.x + pos_x, sway_initial_position.y + pos_y)
 
 func hit(_ball):
 	var brick_sound = get_node_or_null("/root/Game/Brick_Sound")
 	if brick_sound != null:
 		brick_sound.play()
+	Global.color_rotate = Global.color_rotate_amount
+	Global.color_position = _ball.global_position
 	die()
 
 func die():
