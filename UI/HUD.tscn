@@ -99,6 +99,7 @@ margin_top = 20.0
 margin_right = 200.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 400, 25 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 percent_visible = false
